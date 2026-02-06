@@ -1,9 +1,9 @@
 {
-    "name": "com.nmmn4947.NapadolEasingUnityPackage",
+    "name": "com.nmmn4947.napadol-easing-unity-package",
     "version": "1.0.0",
     "displayName": "NapadolEasingUnityPackage",
     "description": "Trying out making a unity package",
-    "unity": "6000.0.58f2",
+    "unity": "2022.1",
     "author":{
     "name": "Napadol Tritrakarn",
     "email": "nmmn4947@gmail.com",
