@@ -2,64 +2,62 @@ using UnityEngine;
 using System.Collections.Generic;
 using Napadol.Tools;
 
-namespace CardProject
+public class NestedAction : Action
 {
-    public class NestedAction : Action
+    private ActionList nestedList = new ActionList();
+
+    public NestedAction(bool blocking, float delay) : base(blocking, delay, float.MaxValue) { actionName = "Nested"; }
+    public NestedAction(Action[] actions, bool blocking, float delay) : base(blocking, delay, float.MaxValue)
     {
-        private ActionList nestedList = new ActionList();
-
-        public NestedAction(bool blocking, float delay) : base(blocking, delay, float.MaxValue) { actionName = "Nested"; }
-        public NestedAction(Action[] actions, bool blocking, float delay) : base(blocking, delay, float.MaxValue)
+        foreach (Action action in actions)
         {
-            foreach (Action action in actions)
-            {
-                nestedList.AddAction(action);
-                
-            }
-            actionName = "Nested";
-            easingFunction = Easing.EaseLinear;
+            nestedList.AddAction(action);
+            
         }
-        public NestedAction(List<Action> actions, bool blocking, float delay) : base(blocking, delay, float.MaxValue)
-        {
-            foreach (Action action in actions)
-            {
-                nestedList.AddAction(action);
-            }
-            actionName = "Nested";
-            easingFunction = Easing.EaseLinear;
-        }
-
-        public void AddAction(Action action)
+        actionName = "Nested";
+        easingFunction = Easing.EaseLinear;
+    }
+    public NestedAction(List<Action> actions, bool blocking, float delay) : base(blocking, delay, float.MaxValue)
+    {
+        foreach (Action action in actions)
         {
             nestedList.AddAction(action);
         }
+        actionName = "Nested";
+        easingFunction = Easing.EaseLinear;
+    }
 
-        protected override bool UpdateLogicUntilDone(float dt)
-        {
-            nestedList.RunActions(dt);
-            if (nestedList.IsEmpty())
-            {
-                return true;
-            }
-            return false;
-        }
+    public void AddAction(Action action)
+    {
+        nestedList.AddAction(action);
+    }
 
-        public ActionList GetActionList()
+    protected override bool UpdateLogicUntilDone(float dt)
+    {
+        nestedList.RunActions(dt);
+        if (nestedList.IsEmpty())
         {
-            return nestedList;
+            return true;
         }
+        return false;
+    }
 
-        public override string GetDebugText()
+    public ActionList GetActionList()
+    {
+        return nestedList;
+    }
+
+    public override string GetDebugText()
+    {
+        string s = "";
+        s += actionName;
+        s += "\n";
+        for (int i = 0; i < nestedList.GetActionListCount(); i++)
         {
-            string s = "";
-            s += actionName;
-            s += "\n";
-            for (int i = 0; i < nestedList.GetActionListCount(); i++)
-            {
-                s += " ";
-                s += nestedList.GetTheList()[i].GetDebugText();
-            }
-            return s;
+            s += " ";
+            s += nestedList.GetTheList()[i].GetDebugText();
         }
+        return s;
     }
 }
+
