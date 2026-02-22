@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 
-public class MoveAction : Action
+public class MoveAction : Napadol.Tools.ActionPattern.Action
 {
     private Vector3 destination;
     private Transform subjectTransform;

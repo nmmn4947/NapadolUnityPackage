@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CallBackAction : Action
+public class CallBackAction : Napadol.Tools.ActionPattern.Action
 {
     private System.Action actionToCallBack;
     private string nameOfFunc;

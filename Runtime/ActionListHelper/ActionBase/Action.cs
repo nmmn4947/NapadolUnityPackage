@@ -2,15 +2,16 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public abstract class Action
-{
-    // GENERAL ACTION VARIABLE
-    public bool blocking;
-    public float delay;
-    public float timePasses = 0.0f;
-    public float duration;
-    public float percentageDone;
-    public float easingTime;
+namespace Napadol.Tools.ActionPattern{
+	public abstract class Action
+	{
+	// GENERAL ACTION VARIABLE
+	public bool blocking;
+	public float delay;
+	public float timePasses = 0.0f;
+	public float duration;
+	public float percentageDone;
+	public float easingTime;
     public string actionName;
     protected Func<float, float> easingFunction;
     protected GameObject subject;
@@ -139,5 +140,6 @@ public abstract class Action
         s += "\n";
         return s;
     }
+}
 }
 

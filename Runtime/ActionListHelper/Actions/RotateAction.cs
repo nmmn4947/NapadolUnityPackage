@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class RotateAction : Action
+public class RotateAction : Napadol.Tools.ActionPattern.Action
 {
     private float angleCalculation;
     private int rightMultiplier = 1;

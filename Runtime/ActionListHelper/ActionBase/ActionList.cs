@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Napadol.Tools;
+using Napadol.Tools.ActionPattern;
 
 public class ActionList
 {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Napadol.Tools;
+using Napadol.Tools.ActionPattern;
 
 public class NestedAction : Action
 {

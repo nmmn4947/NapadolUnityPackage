@@ -1,7 +1,7 @@
 using Napadol.Tools;
 using UnityEngine;
 
-public class WaitAction : Action
+public class WaitAction : Napadol.Tools.ActionPattern.Action
 {
     public WaitAction(float duration) : base(true, 0.0f, duration)
     {
