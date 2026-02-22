@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
-using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
-public class CVGroupFadeAction : Napadol.Tools.ActionPattern.Action
+public class CVGroupFadeAction : Napadol.Tools.Action
 {
     private float startingAlpha;
     private float targetAlpha;

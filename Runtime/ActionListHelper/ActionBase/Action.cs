@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Napadol.Tools.ActionPattern
+namespace Napadol.Tools
 {
     public abstract class Action {
         // GENERAL ACTION VARIABLE

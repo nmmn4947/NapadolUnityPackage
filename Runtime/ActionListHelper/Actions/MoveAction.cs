@@ -1,10 +1,9 @@
 using UnityEngine;
 using System;
-using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
 
-public class MoveAction : Napadol.Tools.ActionPattern.Action
+public class MoveAction : Napadol.Tools.Action
 {
     private Vector3 destination;
     private Transform subjectTransform;

@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
-using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
-public class SpinAction : Napadol.Tools.ActionPattern.Action
+public class SpinAction : Napadol.Tools.Action
 {
     private float rotateSpeed;
     private bool isRotateRight;

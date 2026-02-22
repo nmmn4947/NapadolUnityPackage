@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
-using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
-public class MoveRectTransformAction : Napadol.Tools.ActionPattern.Action
+public class MoveRectTransformAction : Napadol.Tools.Action
 {
     private RectTransform _rectTransform;
     private Vector3 _startPosition;
