@@ -1,5 +1,6 @@
-using Napadol.Tools;
 using UnityEngine;
+using Napadol.Tools.ActionPattern;
+using Napadol.Tools;
 
 public class WaitAction : Action
 {

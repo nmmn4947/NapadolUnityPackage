@@ -2,7 +2,7 @@
     "name": "Napadol.Tools",
     "rootNamespace": "",
     "references": [
-        "ActionPattern"
+        "GUID:e786b8733e7485744a0060b04addab79"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

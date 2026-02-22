@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
 public class ActionListManager : MonoBehaviour

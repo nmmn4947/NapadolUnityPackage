@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Napadol.Tools.ActionPattern;
+using Napadol.Tools;
 
-
-public class RotateAction : Action
+public class RotateAction : Napadol.Tools.ActionPattern.Action
 {
     private float angleCalculation;
     private int rightMultiplier = 1;

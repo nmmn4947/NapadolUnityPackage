@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Napadol.Tools.ActionPattern;
 using Napadol.Tools;
 
-public class NestedAction : Action
+public class NestedAction : Napadol.Tools.ActionPattern.Action
 {
     private ActionList nestedList = new ActionList();
 
