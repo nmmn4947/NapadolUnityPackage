@@ -1,6 +1,6 @@
 {
     "name": "com.nmmn4947.napadol-unity-package",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "displayName": "NapadolUnityPackage",
     "description": "Trying out making a unity package",
     "unity": "2022.1",
