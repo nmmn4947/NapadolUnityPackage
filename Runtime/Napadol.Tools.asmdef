@@ -1,3 +1,16 @@
 {
-	"name": "Napadol.Tools"
+    "name": "Napadol.Tools",
+    "rootNamespace": "",
+    "references": [
+        "ActionPattern"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
