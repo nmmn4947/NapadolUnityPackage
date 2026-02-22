@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Napadol.Tools;
 
-public class NestedAction : Napadol.Tools.Action
+public class NestedAction : Action
 {
     private ActionList nestedList = new ActionList();
 

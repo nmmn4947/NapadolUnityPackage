@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using Napadol.Tools;
 
-public class ScaleAction : Napadol.Tools.Action
+public class ScaleAction : Action
 {
     private Vector2 finalScale;
     private Transform subjectTransform;

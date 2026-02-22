@@ -2,145 +2,142 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-namespace Napadol.Tools
+public abstract class Action
 {
-    public abstract class Action {
-        // GENERAL ACTION VARIABLE
-        public bool blocking;
-        public float delay;
-        public float timePasses = 0.0f;
-        public float duration;
-        public float percentageDone;
-        public float easingTime;
-        public string actionName;
-        protected Func<float, float> easingFunction;
-        protected GameObject subject;
-        private bool runEnterOnce = false;
-        protected bool isDone = false; //for using in Derived UpdateLogicUntilDone
-        
-        protected Action(bool blocking, float delay, float duration)
-        {
-            this.subject = null;
-            this.blocking = blocking;
-            this.delay = delay;
-            this.duration = duration;
-        }
-        
-        protected Action(GameObject subject, bool blocking, float delay, float duration, Func<float, float> easingFunction)
-        {
-            this.subject = subject;
-            this.blocking = blocking;
-            this.delay = delay;
-            this.duration = duration;
-            this.easingFunction = easingFunction;
-        }
+    // GENERAL ACTION VARIABLE
+    public bool blocking;
+    public float delay;
+    public float timePasses = 0.0f;
+    public float duration;
+    public float percentageDone;
+    public float easingTime;
+    public string actionName;
+    protected Func<float, float> easingFunction;
+    protected GameObject subject;
+    private bool runEnterOnce = false;
+    protected bool isDone = false; //for using in Derived UpdateLogicUntilDone
+    
+    protected Action(bool blocking, float delay, float duration)
+    {
+        this.subject = null;
+        this.blocking = blocking;
+        this.delay = delay;
+        this.duration = duration;
+    }
+    
+    protected Action(GameObject subject, bool blocking, float delay, float duration, Func<float, float> easingFunction)
+    {
+        this.subject = subject;
+        this.blocking = blocking;
+        this.delay = delay;
+        this.duration = duration;
+        this.easingFunction = easingFunction;
+    }
 
-        static public void SynchronizeDurationFirstToSecond(Action action1, Action action2)
-        {
-            action2.duration = action1.duration;
-        }
+    static public void SynchronizeDurationFirstToSecond(Action action1, Action action2)
+    {
+        action2.duration = action1.duration;
+    }
 
-        public void SynchronizeDurationFromThisAction(Action action)
+    public void SynchronizeDurationFromThisAction(Action action)
+    {
+        duration = action.duration;
+    }
+    
+    protected abstract bool UpdateLogicUntilDone(float dt);
+    
+    public bool UpdateUntilDone(float dt)
+    {
+        if (RunDelayUntilDone(dt))
         {
-            duration = action.duration;
-        }
-        
-        protected abstract bool UpdateLogicUntilDone(float dt);
-        
-        public bool UpdateUntilDone(float dt)
-        {
-            if (RunDelayUntilDone(dt))
+            Enter(); // will not run after the first frame
+            if (!UpdateLogicUntilDone(dt))
             {
-                Enter(); // will not run after the first frame
-                if (!UpdateLogicUntilDone(dt))
+                timePasses += dt; //update timePasses
+                percentageDone = Mathf.Clamp01(timePasses / duration);
+                easingTime = easingFunction?.Invoke(percentageDone) ?? percentageDone;
+                if (easingFunction == null)
                 {
-                    timePasses += dt; //update timePasses
-                    percentageDone = Mathf.Clamp01(timePasses / duration);
-                    easingTime = easingFunction?.Invoke(percentageDone) ?? percentageDone;
-                    if (easingFunction == null)
-                    {
-                        Debug.LogError("easingFunction is null : " + actionName);
-                    }
-                    
-                    //percentageDone = timePasses / duration; //Updating percentageDone 0 - 1.
-                    if (timePasses > duration)
-                    {
-                        isDone = true;
-                        percentageDone = 1.0f;
-                    }
-                    
-                    return false;
+                    Debug.LogError("easingFunction is null : " + actionName);
                 }
-                else
+                
+                //percentageDone = timePasses / duration; //Updating percentageDone 0 - 1.
+                if (timePasses > duration)
                 {
-                    RunOnceAfterUpdate();
-                    return true;
+                    isDone = true;
+                    percentageDone = 1.0f;
                 }
-            }
-            else
-            {
+                
                 return false;
             }
-        }
-
-        protected virtual void RunOnceBeforeUpdate() { }
-        protected virtual void RunOnceAfterUpdate() { }
-
-        private void Enter()
-        {
-            if (!runEnterOnce)
+            else
             {
-                RunOnceBeforeUpdate();
-                runEnterOnce = true;
-            }
-        }
-        
-        private bool RunDelayUntilDone(float dt)
-        {
-            delay -= dt;
-            if (delay <= 0.0f)
-            {
+                RunOnceAfterUpdate();
                 return true;
             }
+        }
+        else
+        {
             return false;
         }
-        
-        protected float GetTimeLeft()
-        {
-            if (duration >= float.MaxValue)
-            {
-                return float.MaxValue;
-            }
-            
-            if (timePasses > duration)
-            {
-                return 0f;
-            }
-            else
-            {
-                return duration - timePasses;
-            }
-        }
+    }
 
-        public virtual string GetDebugText()
+    protected virtual void RunOnceBeforeUpdate() { }
+    protected virtual void RunOnceAfterUpdate() { }
+
+    private void Enter()
+    {
+        if (!runEnterOnce)
         {
-            string s = "";
-            s += actionName;
-            s += " [";
-            if (subject != null)
-            {
-                s += subject.name;
-            }
-            else
-            {
-                s += "null";
-            }
-            s += "] ";
-            s += percentageDone.ToString("F2");
-            s += "\n";
-            return s;
+            RunOnceBeforeUpdate();
+            runEnterOnce = true;
         }
     }
-}
+    
+    private bool RunDelayUntilDone(float dt)
+    {
+        delay -= dt;
+        if (delay <= 0.0f)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    protected float GetTimeLeft()
+    {
+        if (duration >= float.MaxValue)
+        {
+            return float.MaxValue;
+        }
+        
+        if (timePasses > duration)
+        {
+            return 0f;
+        }
+        else
+        {
+            return duration - timePasses;
+        }
+    }
 
+    public virtual string GetDebugText()
+    {
+        string s = "";
+        s += actionName;
+        s += " [";
+        if (subject != null)
+        {
+            s += subject.name;
+        }
+        else
+        {
+            s += "null";
+        }
+        s += "] ";
+        s += percentageDone.ToString("F2");
+        s += "\n";
+        return s;
+    }
+}
 
