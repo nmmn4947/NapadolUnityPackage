@@ -9,7 +9,7 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
     private Vector2 originalPosition;
     private float speed;
 
-    public MoveAction(GameObject subject, Vector3 destination, float duration) : base(subject)
+    public MoveAction(GameObject subject, Vector3 destination, float duration) : base(subject, duration)
     {
         this.destination = destination;
         subjectTransform = this.subject.transform;
