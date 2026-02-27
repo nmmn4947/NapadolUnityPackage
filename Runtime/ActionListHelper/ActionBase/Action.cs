@@ -25,9 +25,19 @@ namespace Napadol.Tools.ActionPattern{
         this.actionName = GetType().Name;
         this.easingFunction = null;
     }
-    protected Action(GameObject subject)
+    
+    protected Action(float duration)
+    {
+        this.duration = duration;
+        this.blocking = false;
+        this.delay = 0f;
+        this.actionName = GetType().Name;
+        this.easingFunction = null;
+    }
+    protected Action(GameObject subject, float duration)
     {
         this.subject = subject;
+        this.duration = duration;
         this.blocking = false;
         this.delay = 0f;
         this.actionName = GetType().Name;
