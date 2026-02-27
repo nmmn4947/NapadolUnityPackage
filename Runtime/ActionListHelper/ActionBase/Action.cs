@@ -39,7 +39,7 @@ namespace Napadol.Tools.ActionPattern{
         return this;
     }
 
-    public Action Easing(Func<float, float> easingFunction)
+    public Action Easer(Func<float, float> easingFunction)
     {
         this.easingFunction = easingFunction;
         return this;
