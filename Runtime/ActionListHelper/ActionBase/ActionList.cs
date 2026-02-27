@@ -5,7 +5,7 @@ using Napadol.Tools.ActionPattern;
 public class ActionList
 {
     private List<Action> actions = new List<Action>();
-
+    
     public void RunActions(float dt)
     {
         List<int> indexesToKill = new List<int>();

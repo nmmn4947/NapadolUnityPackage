@@ -27,7 +27,7 @@ public class CVGroupFadeAction : Napadol.Tools.ActionPattern.Action
     {
         if (cvNull) return true;
         
-        canvasGroup.alpha = Mathf.Lerp(startingAlpha, targetAlpha, easingTime);
+        canvasGroup.alpha = Mathf.Lerp(startingAlpha, targetAlpha, easingTimePasses);
         
         return (timePasses > duration);
     }

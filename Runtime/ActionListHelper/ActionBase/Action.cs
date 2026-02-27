@@ -11,12 +11,40 @@ namespace Napadol.Tools.ActionPattern{
 	public float timePasses = 0.0f;
 	public float duration;
 	public float percentageDone;
-	public float easingTime;
+	public float easingTimePasses;
     public string actionName;
     protected Func<float, float> easingFunction;
     protected GameObject subject;
     private bool runEnterOnce = false;
     protected bool isDone = false; //for using in Derived UpdateLogicUntilDone
+
+    protected Action()
+    {
+        this.blocking = false;
+        this.delay = 0f;
+        this.actionName = GetType().Name;
+        this.easingFunction = null;
+    }
+
+    #region Builders
+    public Action Block()
+    {
+        this.blocking = true;
+        return this;
+    }
+
+    public Action Delay(float delay)
+    {
+        this.delay = delay;
+        return this;
+    }
+
+    public Action Easing(Func<float, float> easingFunction)
+    {
+        this.easingFunction = easingFunction;
+        return this;
+    }
+    #endregion
     
     protected Action(bool blocking, float delay, float duration)
     {
@@ -56,7 +84,7 @@ namespace Napadol.Tools.ActionPattern{
             {
                 timePasses += dt; //update timePasses
                 percentageDone = Mathf.Clamp01(timePasses / duration);
-                easingTime = easingFunction?.Invoke(percentageDone) ?? percentageDone;
+                easingTimePasses = easingFunction?.Invoke(percentageDone) ?? percentageDone;
                 if (easingFunction == null)
                 {
                     Debug.LogError("easingFunction is null : " + actionName);

@@ -39,10 +39,10 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
         //Try to use Quarternion.Lerp
         if (optimized)
         {
-            float maxDegreesDelta = startingAngle + (totalAngleDelta * easingTime);
+            float maxDegreesDelta = startingAngle + (totalAngleDelta * easingTimePasses);
             //subjectTransform.localRotation = Quaternion.RotateTowards(subjectTransform.localRotation, targetRotation, maxDegreesDelta);
             //float currentAngle = Mathf.Lerp(startingAngle, startingAngle + totalAngleDelta, EaseOutExpo());
-            float currentAngle = startingAngle + (totalAngleDelta * easingTime);
+            float currentAngle = startingAngle + (totalAngleDelta * easingTimePasses);
             subjectTransform.localRotation = Quaternion.Euler(subjectTransform.localEulerAngles.x, subjectTransform.localEulerAngles.y, currentAngle);
             return timePasses > duration;
         }
@@ -62,7 +62,7 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
 
     private float AngleEaseOutQuad()
     {
-        float currentAngle = Mathf.Lerp(startingAngle, finalAngle, easingTime);
+        float currentAngle = Mathf.Lerp(startingAngle, finalAngle, easingTimePasses);
         return currentAngle;
     }
 

@@ -63,7 +63,7 @@ public class MoveRectTransformAction : Napadol.Tools.ActionPattern.Action
                 _rectTransform.position = _endPosition;
                 return true;
             }
-            _rectTransform.position = Vector3.LerpUnclamped(_startPosition, _endPosition, easingTime);
+            _rectTransform.position = Vector3.LerpUnclamped(_startPosition, _endPosition, easingTimePasses);
         }
         else
         {
@@ -72,7 +72,7 @@ public class MoveRectTransformAction : Napadol.Tools.ActionPattern.Action
                 _rectTransform.localPosition = _endPosition;
                 return true;
             }
-            _rectTransform.localPosition = Vector3.LerpUnclamped(_startPosition, _endPosition, easingTime);
+            _rectTransform.localPosition = Vector3.LerpUnclamped(_startPosition, _endPosition, easingTimePasses);
         }
         
         return (timePasses > duration);

@@ -9,6 +9,20 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
     private Vector2 originalPosition;
     private float speed;
 
+    public MoveAction(GameObject subject, Vector3 destination, float duration) : base()
+    {
+        this.destination = destination;
+        subjectTransform = this.subject.transform;
+        if (duration > 0f)
+        {
+            this.speed = Vector2.Distance(subject.transform.localPosition, destination) / duration;
+        }
+        else
+        {
+            this.speed = 0f;
+        }
+    }
+    
     public MoveAction(GameObject subject, bool blocking, float delay, float speed, Vector3 destination, Func<float, float> easingFunc) : base(subject,blocking, delay, Vector2.Distance(subject.transform.position, destination)/speed, easingFunc)
     {
         this.destination = destination;
@@ -45,7 +59,7 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
             subjectTransform.localPosition = destination;
             return true;
         }
-        subjectTransform.localPosition = Vector3.LerpUnclamped(originalPosition, destination, easingTime); //EASE OUT BACK
+        subjectTransform.localPosition = Vector3.LerpUnclamped(originalPosition, destination, easingTimePasses); //EASE OUT BACK
 
         return percentageDone >= 1f;
         
