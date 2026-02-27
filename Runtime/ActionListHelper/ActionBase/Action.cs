@@ -25,6 +25,14 @@ namespace Napadol.Tools.ActionPattern{
         this.actionName = GetType().Name;
         this.easingFunction = null;
     }
+    protected Action(GameObject subject)
+    {
+        this.subject = subject;
+        this.blocking = false;
+        this.delay = 0f;
+        this.actionName = GetType().Name;
+        this.easingFunction = null;
+    }
 
     #region Builders
     public Action Block()
