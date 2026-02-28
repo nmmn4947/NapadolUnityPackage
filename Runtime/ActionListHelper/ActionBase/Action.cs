@@ -71,6 +71,13 @@ namespace Napadol.Tools.ActionPattern{
         this.easingFunction = easingFunction;
         return this;
     }
+
+    public Action Reverse()
+    {
+        this.isReverse = true;
+        return this;
+    }
+    
     #endregion
     
     protected Action(bool blocking, float delay, float duration)
