@@ -11,12 +11,15 @@ namespace Napadol.Tools.ActionPattern{
 	public float timePasses = 0.0f;
 	public float duration;
 	public float percentageDone;
+    private float clampTimePasses;
 	public float easingTimePasses;
     public string actionName;
     protected Func<float, float> easingFunction;
     protected GameObject subject;
     private bool runEnterOnce = false;
     protected bool isDone = false; //for using in Derived UpdateLogicUntilDone
+    protected bool isReverse = false;
+    private bool isReversing = false;
 
     protected Action()
     {
@@ -108,7 +111,15 @@ namespace Napadol.Tools.ActionPattern{
             {
                 timePasses += dt; //update timePasses
                 percentageDone = Mathf.Clamp01(timePasses / duration);
-                easingTimePasses = easingFunction?.Invoke(percentageDone) ?? percentageDone;
+                if (!isReversing)
+                {
+                    clampTimePasses = Mathf.Clamp01(timePasses / duration);
+                }
+                else
+                {
+                    clampTimePasses = Mathf.Clamp01(1 - (timePasses / duration));
+                }
+                easingTimePasses = easingFunction?.Invoke(clampTimePasses) ?? clampTimePasses;
                 if (easingFunction == null)
                 {
                     Debug.LogError("easingFunction is null : " + actionName);
@@ -126,7 +137,17 @@ namespace Napadol.Tools.ActionPattern{
             else
             {
                 RunOnceAfterUpdate();
-                return true;
+                if (isReverse)
+                {
+                    timePasses = 0f;
+                    isReverse = false;
+                    isReversing = true;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
         else
