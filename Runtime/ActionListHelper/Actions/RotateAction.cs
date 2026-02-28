@@ -15,6 +15,27 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
     private Quaternion startRotation;
     private float totalAngleDelta;
     private Quaternion targetRotation;
+
+    public RotateAction(GameObject subject, float goalAngle, float duration) : base(subject, duration)
+    {
+        subjectTransform = subject.transform;
+        angleCalculation = goalAngle;
+    }
+
+    #region Builders
+
+    void RotateAction RotateRight()
+    {
+        rightMultiplier = -1;
+        return this;
+    }
+    void RotateAction AddLoop(int loopCountMultiplier)
+    {
+        angleCalculation += (loopCountMultiplier * 360.0f);
+        return this;
+    }
+
+    #endregion
     
     public RotateAction(GameObject subject, bool blocking, float delay, float duration, float goalAngle, int loopCountMultiplier, bool isRight, Func<float, float> easingFunc) : base(subject, blocking, delay, duration, easingFunc)
     {
@@ -26,7 +47,6 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
         angleCalculation = goalAngle + (loopCountMultiplier * 360.0f);
         actionName = "Rotate";
     }
-    
     public RotateAction(GameObject subject, bool blocking, float delay, float duration, float goalAngle, Func<float, float> easingFunc) : base(subject, blocking, delay, duration, easingFunc)
     {
         subjectTransform = subject.transform;
