@@ -7,7 +7,7 @@ public class NestedAction : Action
 {
     private ActionList nestedList = new ActionList();
 
-    public NestedAction(float.MaxValue) : base()
+    public NestedAction() : base(float.MaxValue)
     {
         easingFunction = Easing.EaseLinear;
     }
