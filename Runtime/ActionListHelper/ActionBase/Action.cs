@@ -143,7 +143,6 @@ namespace Napadol.Tools.ActionPattern{
             }
             else
             {
-                RunOnceAfterUpdate();
                 if (isReverse)
                 {
                     timePasses = 0f;
@@ -153,6 +152,7 @@ namespace Napadol.Tools.ActionPattern{
                 }
                 else
                 {
+                    RunOnceAfterUpdate();
                     return true;
                 }
             }
