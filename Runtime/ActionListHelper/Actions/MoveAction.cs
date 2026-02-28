@@ -8,6 +8,7 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
     private Transform subjectTransform;
     private Vector2 originalPosition;
     private float speed;
+    private bool moveZ = true;
 
     public MoveAction(GameObject subject, Vector3 destination, float duration) : base(subject, duration)
     {
@@ -22,6 +23,16 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
             this.speed = 0f;
         }
     }
+
+    #region Builders
+
+    public MoveAction DontMoveZ()
+    {
+        moveZ = false;
+        return this;
+    }
+
+    #endregion
     
     public MoveAction(GameObject subject, bool blocking, float delay, float speed, Vector3 destination, Func<float, float> easingFunc) : base(subject,blocking, delay, Vector2.Distance(subject.transform.position, destination)/speed, easingFunc)
     {
@@ -50,6 +61,10 @@ public class MoveAction : Napadol.Tools.ActionPattern.Action
     protected override void RunOnceBeforeUpdate()
     {
         originalPosition = this.subject.transform.localPosition;
+        if (!moveZ)
+        {
+            destination = new Vector3(destination.x, destination.y, this.subject.transform.localPosition.z);
+        }
     }
     
     protected override bool UpdateLogicUntilDone(float dt)
