@@ -17,7 +17,6 @@ namespace Napadol.Tools.ActionPattern{
     protected Func<float, float> easingFunction;
     protected GameObject subject;
     private bool runEnterOnce = false;
-    protected bool isDone = false; //for using in Derived UpdateLogicUntilDone
     protected bool isReverse = false;
     private bool isReversing = false;
 
@@ -114,31 +113,30 @@ namespace Napadol.Tools.ActionPattern{
         if (RunDelayUntilDone(dt))
         {
             Enter(); // will not run after the first frame
+            timePasses += dt; //update timePasses
+            percentageDone = Mathf.Clamp01(timePasses / duration);
+            if (!isReversing)
+            {
+                clampTimePasses = Mathf.Clamp01(timePasses / duration);
+            }
+            else
+            {
+                clampTimePasses = Mathf.Clamp01(1 - (timePasses / duration));
+            }
+            easingTimePasses = easingFunction?.Invoke(clampTimePasses) ?? clampTimePasses;
+            if (easingFunction == null)
+            {
+                Debug.LogError("easingFunction is null : " + actionName);
+            }
+                
+            //percentageDone = timePasses / duration; //Updating percentageDone 0 - 1.
+            if (timePasses > duration)
+            {
+                percentageDone = 1.0f;
+            }
+            
             if (percentageDone < 1.0f)
             {
-                timePasses += dt; //update timePasses
-                percentageDone = Mathf.Clamp01(timePasses / duration);
-                if (!isReversing)
-                {
-                    clampTimePasses = Mathf.Clamp01(timePasses / duration);
-                }
-                else
-                {
-                    clampTimePasses = Mathf.Clamp01(1 - (timePasses / duration));
-                }
-                easingTimePasses = easingFunction?.Invoke(clampTimePasses) ?? clampTimePasses;
-                if (easingFunction == null)
-                {
-                    Debug.LogError("easingFunction is null : " + actionName);
-                }
-                
-                //percentageDone = timePasses / duration; //Updating percentageDone 0 - 1.
-                if (timePasses > duration)
-                {
-                    isDone = true;
-                    percentageDone = 1.0f;
-                }
-
                 UpdateLogicUntilDone(dt);
                 return false;
             }
@@ -221,6 +219,5 @@ namespace Napadol.Tools.ActionPattern{
         s += "\n";
         return s;
     }
+    }
 }
-}
-
