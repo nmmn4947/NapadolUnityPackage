@@ -38,9 +38,9 @@ public class YawAction : Napadol.Tools.ActionPattern.Action
         float targetY = startingAngle.eulerAngles.y + (angleCalculation * rightMultiplier);
 
         Quaternion targetRotation = Quaternion.Euler(
-            0f,
+            startingAngle.eulerAngles.x,
             targetY,
-            0f
+            startingAngle.eulerAngles.z
         );
         
         subjectTransform.localRotation = Quaternion.Slerp(startingAngle, targetRotation, easingTimePasses);
