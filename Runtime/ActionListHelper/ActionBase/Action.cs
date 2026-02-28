@@ -114,7 +114,7 @@ namespace Napadol.Tools.ActionPattern{
         if (RunDelayUntilDone(dt))
         {
             Enter(); // will not run after the first frame
-            if (!UpdateLogicUntilDone(dt))
+            if (percentageDone >= 1.0f)
             {
                 timePasses += dt; //update timePasses
                 percentageDone = Mathf.Clamp01(timePasses / duration);
@@ -138,7 +138,8 @@ namespace Napadol.Tools.ActionPattern{
                     isDone = true;
                     percentageDone = 1.0f;
                 }
-                
+
+                UpdateLogicUntilDone(dt);
                 return false;
             }
             else

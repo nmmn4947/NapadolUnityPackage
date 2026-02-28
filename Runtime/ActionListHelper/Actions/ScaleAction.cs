@@ -51,7 +51,7 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
         {
             subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
         }
-
+        
         return percentageDone >= 1.0f;
     }
 }
