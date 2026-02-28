@@ -24,12 +24,12 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
 
     #region Builders
 
-    void RotateAction RotateRight()
+    RotateAction RotateRight()
     {
         rightMultiplier = -1;
         return this;
     }
-    void RotateAction AddLoop(int loopCountMultiplier)
+    RotateAction AddLoop(int loopCountMultiplier)
     {
         angleCalculation += (loopCountMultiplier * 360.0f);
         return this;
