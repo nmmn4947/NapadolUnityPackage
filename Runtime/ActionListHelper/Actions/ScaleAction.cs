@@ -3,9 +3,20 @@ using UnityEngine;
 
 public class ScaleAction : Napadol.Tools.ActionPattern.Action
 {
-    private Vector2 finalScale;
+    private Vector3 finalScale;
     private Transform subjectTransform;
-    private Vector2 originalScale;
+    private Vector3 originalScale;
+
+    public ScaleAction(GameObject subject, Vector3 finalScale, float duration)
+    {
+        this.finalScale = finalScale;
+        this.duration = duration;
+        subjectTransform = subject.transform;
+    }
+
+    #region Builders
+
+    #endregion
     
     public ScaleAction(GameObject subject, bool blocking, float delay, Vector2 finalScale, float duration, Func<float ,float> easingFunc) : base(subject, blocking, delay, duration, easingFunc)
     {
@@ -32,12 +43,13 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
     private bool ScaleUntilFinalScale()
     {
         subjectTransform.localScale = new Vector3(Mathf.Lerp(originalScale.x, finalScale.x, easingTimePasses),
-                                                  Mathf.Lerp(originalScale.y, finalScale.y, easingTimePasses), 0);
+                                                  Mathf.Lerp(originalScale.y, finalScale.y, easingTimePasses), 
+                                                  Mathf.Lerp(originalScale.z, finalScale.z, easingTimePasses));
         
         // Snap to final scale when very close or time is up
         if (percentageDone >= 1.0f || easingTimePasses >= 0.999f)
         {
-            subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, 0);
+            subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
             return true;
         }
 

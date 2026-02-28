@@ -51,6 +51,12 @@ namespace Napadol.Tools.ActionPattern{
         return this;
     }
 
+    public Action Block(bool b)
+    {
+        this.blocking = b;
+        return this;
+    }
+
     public Action Delay(float delay)
     {
         this.delay = delay;
