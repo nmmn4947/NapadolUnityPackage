@@ -7,6 +7,21 @@ public class NestedAction : Action
 {
     private ActionList nestedList = new ActionList();
 
+    public NestedAction() : base()
+    {
+        easingFunction = Easing.EaseLinear;
+    }
+
+    #region Builders
+
+    public NestedAction Add(Action add)
+    {
+        nestedList.AddAction(add);
+        return this;
+    }
+
+    #endregion
+    
     public NestedAction(bool blocking, float delay) : base(blocking, delay, float.MaxValue) { actionName = "Nested"; }
     public NestedAction(Action[] actions, bool blocking, float delay) : base(blocking, delay, float.MaxValue)
     {
