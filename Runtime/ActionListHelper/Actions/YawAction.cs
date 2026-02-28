@@ -15,12 +15,12 @@ public class YawAction : Napadol.Tools.ActionPattern.Action
 
     #region Builders
 
-    YawAction RotateRight()
+    public YawAction RotateRight()
     {
         rightMultiplier = -1;
         return this;
     }
-    YawAction AddLoop(int loopCountMultiplier)
+    public YawAction AddLoop(int loopCountMultiplier)
     {
         angleCalculation += (loopCountMultiplier * 360.0f);
         return this;
