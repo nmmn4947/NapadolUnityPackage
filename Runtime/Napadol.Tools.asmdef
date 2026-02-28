@@ -2,7 +2,7 @@
     "name": "Napadol.Tools",
     "rootNamespace": "",
     "references": [
-        "ActionPattern"
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
