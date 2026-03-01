@@ -15,6 +15,12 @@ public class ActionList
             {
                 indexesToKill.Add(i);
             }
+
+            if (actions[i]==null)
+            {
+                Debug.Log("null action");
+                continue;
+            }
             if (actions[i].blocking)
             {
                 break;

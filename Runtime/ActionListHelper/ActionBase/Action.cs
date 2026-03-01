@@ -19,6 +19,7 @@ namespace Napadol.Tools.ActionPattern{
     private bool runEnterOnce = false;
     protected bool isReverse = false;
     private bool isReversing = false;
+    private bool isDone = false;
 
     protected Action()
     {
@@ -138,7 +139,6 @@ namespace Napadol.Tools.ActionPattern{
             if (percentageDone < 1.0f)
             {
                 UpdateLogicUntilDone(dt);
-                return false;
             }
             else
             {
@@ -147,19 +147,20 @@ namespace Napadol.Tools.ActionPattern{
                     timePasses = 0f;
                     isReverse = false;
                     isReversing = true;
-                    return false;
                 }
                 else
                 {
                     RunOnceAfterUpdate();
-                    return true;
+                    isDone = true;
                 }
             }
         }
         else
         {
-            return false;
+            
         }
+
+        return isDone;
     }
 
     protected virtual void RunOnceBeforeUpdate() { }
@@ -219,5 +220,12 @@ namespace Napadol.Tools.ActionPattern{
         s += "\n";
         return s;
     }
+
+    public void ForcedEnd()
+    {
+        RunOnceAfterUpdate();
+        isDone = true;
+    }
+    
     }
 }
