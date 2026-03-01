@@ -12,7 +12,7 @@ public class ActionListManager : MonoBehaviour
     public float timeMultiplier = 1;
     protected float averageLerpTime = 0.5f;
     
-    private void Awake()
+    protected virtual void Awake()
     {
         actionList = new ActionList();
     }
