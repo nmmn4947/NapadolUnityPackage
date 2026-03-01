@@ -53,7 +53,6 @@ public class NestedAction : Action
         nestedList.RunActions(dt);
         if (nestedList.IsEmpty())
         {
-            duration = timePasses;
             return true;
         }
         return false;
