@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Napadol.Tools;
 
 public class CallBackAction : Napadol.Tools.ActionPattern.Action
 {
@@ -12,7 +13,7 @@ public class CallBackAction : Napadol.Tools.ActionPattern.Action
     {
         this.actionToCallBack = actionToCallBack;
         this.nameOfFunc = nameOfFunc;
-        easingFunction = Easing.EaseLinear;
+        this.easingFunction = Easing.EaseLinear;
     }
     
     public CallBackAction(System.Action actionToCallBack, string nameOfFunc, bool blocking, float delay) : base(blocking, delay, 0.0f)
