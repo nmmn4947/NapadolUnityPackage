@@ -9,7 +9,7 @@ public class CallBackAction : Napadol.Tools.ActionPattern.Action
     private ActionList actionList;
     private int index;
     
-    public CallBackAction(System.Action actionToCallBack, string nameOfFunc) : base()
+    public CallBackAction(System.Action actionToCallBack, string nameOfFunc) : base(0.02f)
     {
         this.actionToCallBack = actionToCallBack;
         this.nameOfFunc = nameOfFunc;
