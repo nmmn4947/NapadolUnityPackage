@@ -14,6 +14,7 @@ namespace Napadol.Tools.ActionPattern{
     private float clampTimePasses;
 	public float easingTimePasses;
     public string actionName;
+	public bool unique = false;
     protected Func<float, float> easingFunction;
     protected GameObject subject;
     private bool runEnterOnce = false;
@@ -53,6 +54,12 @@ namespace Napadol.Tools.ActionPattern{
         this.blocking = true;
         return this;
     }
+
+	public Action Unique()
+	{
+		this.unique = true;
+		return this;
+	}
 
     public Action Block(bool b)
     {

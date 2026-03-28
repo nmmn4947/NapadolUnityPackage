@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Napadol.Tools.ActionPattern;
+using Action = Napadol.Tools.ActionPattern.Action;
 
 public class ActionList
 {
     private List<Action> actions = new List<Action>();
+	private Dictionary<Type, Action> uniques = new Dictionary<Type, Action>();
     
     public void RunActions(float dt)
     {
@@ -13,6 +16,10 @@ public class ActionList
         {
             if (actions[i].UpdateUntilDone(dt))
             {
+				if (actions[i].unique)
+                {
+                    uniques.Remove(actions[i].GetType());
+                }
                 indexesToKill.Add(i);
             }
 
@@ -34,6 +41,15 @@ public class ActionList
     }
     public void AddAction(Action action)
     {
+        if (action.unique)
+        {
+            Type t = action.GetType();
+            if (uniques.ContainsKey(t))
+            {
+                return;
+            }
+            uniques[t] = action;
+        }
         actions.Add(action);
     }
 
