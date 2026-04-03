@@ -8,7 +8,22 @@ public class MoveRectTransformAction : Napadol.Tools.ActionPattern.Action
     private Vector3 _startPosition;
     private Vector3 _endPosition;
     private bool worldPosMove = false;
+
+    public MoveRectTransformAction(GameObject subject, Vector3 targetPos, float duration) : base(subject, duration)
+    {
+        _endPosition = targetPos;
+        _rectTransform = subject.GetComponent<RectTransform>();
+        if (_rectTransform == null)
+        {
+            Debug.LogError("RectTransform not found");
+        }
+        _startPosition = _rectTransform.localPosition;
+    }
+
+    #region Builders
     
+    
+    #endregion
     public MoveRectTransformAction(Vector3 targetPos, GameObject subject, bool blocking, float delay, float duration, Func<float, float> easingFunction) : base(subject, blocking, delay, duration, easingFunction)
     {
         _endPosition = targetPos;
