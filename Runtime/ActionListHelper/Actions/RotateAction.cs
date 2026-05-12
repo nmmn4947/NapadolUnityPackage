@@ -10,16 +10,26 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
     private int rightMultiplier = 1;
     private Transform subjectTransform;
     private float startingAngle;
+    private Quaternion startingAngleQ;
     private float finalAngle;
     private bool optimized = false;
     private Quaternion startRotation;
     private float totalAngleDelta;
     private Quaternion targetRotation;
+    
+    private bool rotateWithTargetQ = false;
 
     public RotateAction(GameObject subject, float goalAngle, float duration) : base(subject, duration)
     {
         subjectTransform = subject.transform;
         angleCalculation = goalAngle;
+    }
+    
+    public RotateAction(GameObject subject, Quaternion rotation, float duration) : base(subject, duration)
+    {
+        subjectTransform = subject.transform;
+        targetRotation = rotation;
+        rotateWithTargetQ = true;
     }
 
     #region Builders
@@ -56,6 +66,12 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
     //EaseOutExpo
     protected override bool UpdateLogicUntilDone(float dt)
     {
+        if (rotateWithTargetQ)
+        {
+            subjectTransform.localRotation = Quaternion.Slerp(startingAngleQ, targetRotation, easingTimePasses);
+            return percentageDone >= 1f;
+        }
+        
         //Try to use Quarternion.Lerp
         if (optimized)
         {
@@ -91,6 +107,8 @@ public class RotateAction : Napadol.Tools.ActionPattern.Action
         startingAngle = subjectTransform.localEulerAngles.z;
         finalAngle = angleCalculation * rightMultiplier;
         startRotation = subjectTransform.localRotation;
+
+        startingAngleQ = subjectTransform.localRotation;
         
         /*targetRotation = startRotation * Quaternion.Euler(0, 0, finalAngle);
         totalAngleDelta = Quaternion.Angle(startRotation, targetRotation);*/
