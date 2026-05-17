@@ -42,9 +42,9 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
     //EaseOutExpo
     private bool ScaleUntilFinalScale()
     {
-        subjectTransform.localScale = new Vector3(Mathf.Lerp(originalScale.x, finalScale.x, easingTimePasses),
-                                                  Mathf.Lerp(originalScale.y, finalScale.y, easingTimePasses), 
-                                                  Mathf.Lerp(originalScale.z, finalScale.z, easingTimePasses));
+        subjectTransform.localScale = new Vector3(Mathf.LerpUnclamped(originalScale.x, finalScale.x, easingTimePasses),
+                                                  Mathf.LerpUnclamped(originalScale.y, finalScale.y, easingTimePasses), 
+                                                  Mathf.LerpUnclamped(originalScale.z, finalScale.z, easingTimePasses));
         
         // Snap to final scale when very close or time is up
         if (percentageDone >= 1.0f || easingTimePasses >= 0.999f)
