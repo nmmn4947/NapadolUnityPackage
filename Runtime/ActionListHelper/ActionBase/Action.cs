@@ -21,6 +21,7 @@ namespace Napadol.Tools.ActionPattern{
     protected bool isReverse = false;
     private bool isReversing = false;
     private bool isDone = false;
+	public int group = 0;// needed to do bit manipulation, so that it could be turn on off by a switch.
 
     protected Action()
     {
@@ -84,6 +85,11 @@ namespace Napadol.Tools.ActionPattern{
         this.isReverse = true;
         return this;
     }
+
+	public Action Group(int group){
+		this.group = group;
+		return this;
+	}
     
     #endregion
     

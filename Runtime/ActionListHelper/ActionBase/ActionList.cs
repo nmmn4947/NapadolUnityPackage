@@ -11,26 +11,36 @@ public class ActionList
     
     public void RunActions(float dt)
     {
+		int blockedGroups = 0;
         List<int> indexesToKill = new List<int>();
         for(int i = 0; i < actions.Count; i++)
         {
+			if (actions[i]==null)
+            {
+                Debug.Log("null action");
+                continue;
+            }
+            
+			int group = actions[i].group;
+        	if (group != 0 && (blockedGroups & (1 << group)) != 0)
+        	{
+            	continue;
+        	}
+			
             if (actions[i].UpdateUntilDone(dt))
             {
 				if (actions[i].unique)
                 {
                     uniques.Remove(actions[i].GetType());
                 }
+				//turn off group switch
                 indexesToKill.Add(i);
             }
 
-            if (actions[i]==null)
-            {
-                Debug.Log("null action");
-                continue;
-            }
+            
             if (actions[i].blocking)
             {
-                break;
+                blockedGroups |= (1 << group);
             }
         }
 
@@ -39,6 +49,7 @@ public class ActionList
             actions.RemoveAt(indexesToKill[i]);
         }
     }
+
     public void AddAction(Action action)
     {
         if (action.unique)
