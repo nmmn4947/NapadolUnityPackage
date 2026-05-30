@@ -50,6 +50,7 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
         if (percentageDone >= 1.0f || easingTimePasses >= 0.99f)
         {
             subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
+			Debug.Log(subjectTransform.localScale);
         }
         
         return percentageDone >= 1.0f;
