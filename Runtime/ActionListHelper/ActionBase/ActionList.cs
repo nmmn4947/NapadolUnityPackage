@@ -22,7 +22,8 @@ public class ActionList
             }
             
 			int group = actions[i].group;
-        	if (group != 0 && (blockedGroups & (1 << group)) != 0)
+        	//if (group != 0 && (blockedGroups & (1 << group)) != 0)  /// THIS ONE IS FOR NO BLOCK IN GROUP 0
+            if ((blockedGroups & (1 << group)) != 0)
         	{
             	continue;
         	}
