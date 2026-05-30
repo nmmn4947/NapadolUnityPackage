@@ -61,6 +61,8 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
 		{
 			Debug.Log("hr");
 			return;
+		}else{
+			Debug.Log("hr2");
 		}
 		//subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
 	}
