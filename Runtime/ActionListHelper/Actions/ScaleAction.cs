@@ -47,7 +47,7 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
                                                   Mathf.LerpUnclamped(originalScale.z, finalScale.z, easingTimePasses));
         
         // Snap to final scale when very close or time is up
-        if (percentageDone >= 1.0f || easingTimePasses >= 0.999f)
+        if (percentageDone >= 1.0f || easingTimePasses >= 0.99f)
         {
             subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
         }
