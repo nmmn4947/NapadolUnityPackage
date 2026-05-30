@@ -19,7 +19,7 @@ namespace Napadol.Tools.ActionPattern{
     protected GameObject subject;
     private bool runEnterOnce = false;
     protected bool isReverse = false;
-    private bool isReversing = false;
+    protected bool isReversing = false;
     private bool isDone = false;
 	public int group = 0;// needed to do bit manipulation, so that it could be turn on off by a switch.
 
