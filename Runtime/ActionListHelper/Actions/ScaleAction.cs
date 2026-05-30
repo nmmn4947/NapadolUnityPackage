@@ -57,8 +57,8 @@ public class ScaleAction : Napadol.Tools.ActionPattern.Action
 	
 	protected override void RunOnceAfterUpdate() 
 	{ 
-		if(this.isReverse){return;}
-		subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
+		//if(this.isReverse){return;}
+		//subjectTransform.localScale = new Vector3(finalScale.x, finalScale.y, finalScale.z);
 	}
 
 }
