@@ -106,4 +106,18 @@ public class ActionList
     {
         actions.Clear();
     }
+
+	public void ClearGroup(int group)
+	{
+    	for (int i = actions.Count - 1; i >= 0; i--)
+    	{
+        	if (actions[i] != null && actions[i].group == group)
+        	{
+            	if (actions[i].unique)
+                	uniques.Remove(actions[i].GetType());
+            
+            	actions.RemoveAt(i);
+        	}
+    	}
+	}
 }
